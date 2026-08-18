@@ -22,7 +22,9 @@
 #SBATCH --mem=180G
 #SBATCH --time=12:00:00
 #SBATCH --output=%x-%j.out
-#SBATCH --error=%x-%j.err
+# No --error: with only --output set, Slurm merges stderr into it, so M2's
+# elapsedTime output (which goes to stderr) appears next to the computation
+# it timed rather than in a separate file.
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=dtorrance9@gatech.edu
 
