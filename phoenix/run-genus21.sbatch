@@ -18,7 +18,11 @@
 #SBATCH --job-name=genus21
 #SBATCH --account=gts-dtorrance9
 #SBATCH --qos=inferno
-#SBATCH --nodes=1 --ntasks-per-node=1      # single-threaded: fflas-ffpack needs threads=none
+#SBATCH --nodes=1 --ntasks=1 --cpus-per-task=8
+# M2 parallelizes minimalBetti via TBB by default. cpus-per-task (not
+# ntasks) is the right knob for one process with many threads. On the
+# big-memory rungs raise this: you are already billed for the node's
+# memory share, so unused cores are wasted money.
 #SBATCH --mem=180G
 #SBATCH --time=12:00:00
 #SBATCH --output=%x-%j.out
@@ -35,7 +39,12 @@ spack load macaulay2
 
 STAGE="${STAGE:-Y0}"
 LENGTH_LIMIT="${LENGTH_LIMIT:-6}"
-export LENGTH_LIMIT
+PARALLELIZE_BY_DEGREE="${PARALLELIZE_BY_DEGREE:-false}"
+# Tell TBB how many cores it actually has. Left to itself it queries the
+# machine and sees all 128, while the cgroup grants only what we asked
+# for -- oversubscription, not speedup.
+M2_THREADS="${SLURM_CPUS_PER_TASK:-1}"
+export LENGTH_LIMIT PARALLELIZE_BY_DEGREE M2_THREADS
 
 # Work in a per-job directory on scratch, but keep the Y0 checkpoint somewhere
 # stable so stage 2 can find it across jobs.
@@ -52,6 +61,7 @@ case "$STAGE" in
 esac
 
 echo "host=$(hostname) stage=$STAGE length_limit=$LENGTH_LIMIT start=$(date)"
+echo "threads=$M2_THREADS parallelize_by_degree=$PARALLELIZE_BY_DEGREE"
 echo "partition=${SLURM_JOB_PARTITION:-?} mem=${SLURM_MEM_PER_NODE:-?}M workdir=$WORKDIR"
 M2 --version
 

@@ -30,8 +30,19 @@ assert(dim Y0==0)
 apply(5, i -> hilbertFunction(i, P18/Y0))
 
 -- Checkpoint. Stage 2 reconstructs P18 and Y0 by loading this file.
-"Y0.m2" << "kk = ZZ/" << char kk << ";" << endl
-        << "P18 = kk[" << demark(",", toString \ gens P18) << "];" << endl
-        << "Y0 = " << toExternalString Y0 << ";" << endl << close;
+--
+-- One statement per line on purpose: reading from stdin, M2 evaluates any line
+-- that forms a complete expression, so a continuation line beginning with "<<"
+-- would parse as a prefix << to stdio and silently write to the terminal
+-- instead of the file.
+ckpt = openOut "Y0.m2";
+ckpt << "kk = ZZ/" << char kk << ";" << endl;
+ckpt << "P18 = kk[" << demark(",", toString \ gens P18) << "];" << endl;
+ckpt << "Y0 = " << toExternalString Y0 << ";" << endl;
+close ckpt;
 
-<< "wrote Y0.m2" << endl
+-- Verify the checkpoint round-trips before this job exits, so a failure here
+-- is not discovered at the start of an expensive stage-2 job.
+assert(#lines get "Y0.m2" == 3);
+assert(match("^Y0 = ideal", (lines get "Y0.m2")#2));
+<< "wrote Y0.m2 (" << #(get "Y0.m2") << " bytes)" << endl;
