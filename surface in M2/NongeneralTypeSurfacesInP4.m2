@@ -414,9 +414,18 @@ minimalModelOfK3(Ideal) := o -> X -> (
     r:=(max (degrees source gens mD))_0;
     Hr:=ideal(gens mD*random(source gens mD,P4^{-r}));
     betti(residual:=(X+Hr):mD);
-    betti(res1:=trim ideal (gens truncate(r+1,residual)%X));    
-    assert(numgens res1 == g+1);
-    betti(hb:=gens trim ideal (gens res1%(X+Hr)));
+    -- truncate(r+1,residual) goes through presentation module residual, i.e.
+    -- the syzygies of its generators: 1944s on the (11,11,5,2,21) example
+    -- against 3.9s for the equivalent intersection below, same ideal.
+    betti(res1:=trim ideal (gens intersect((ideal vars P4)^(r+1), residual)%X));
+    -- res1 may carry generators above degree r+1 (one in degree 9 on the
+    -- (11,11,5,2,21) example).  The sections of the polarization are the g+1
+    -- generators in degree r+1; keeping the extra one yields 23 columns in
+    -- (ha|hb) for a ring with g+1 = 22 variables.  Selecting by degree rather
+    -- than by position, cf. Macaulay2 issue #3021.
+    sections := (gens res1)_(positions(degrees source gens res1, deg -> deg#0 == r+1));
+    assert(numcols sections == g+1);
+    betti(hb:=gens trim ideal (sections%(X+Hr)));
     betti(ha:=map(P4^1,,vars P4*(Hr_0)));
     y:=symbol y;
     Pg:=kk[y_0..y_g];
