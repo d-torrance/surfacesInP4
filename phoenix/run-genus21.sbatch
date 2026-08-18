@@ -68,7 +68,11 @@ M2 --version
 # Fed on stdin rather than via --script so the transcript reads like an
 # interactive session: input echoed, i1/o1 prompts, errors reported inline
 # rather than aborting. stdbuf keeps the log flowing for `tail -f`.
-stdbuf -oL M2 -q -e "path = prepend(\"$PKG_DIR/\", path)" < "$SCRIPT"
+# --no-debug matters here: without it an error drops M2 into the debugger,
+# which then reads the REST OF THE SCRIPT as debugger commands. Every
+# subsequent line runs in a context where nothing is defined, burying the
+# real failure under a cascade of "no method found ... (of class Symbol)".
+stdbuf -oL M2 -q --no-debug -e "path = prepend(\"$PKG_DIR/\", path)" < "$SCRIPT"
 m2_status=${PIPESTATUS[0]}
 
 echo "end=$(date) m2_exit=$m2_status"

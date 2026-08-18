@@ -35,14 +35,16 @@ apply(5, i -> hilbertFunction(i, P18/Y0))
 -- that forms a complete expression, so a continuation line beginning with "<<"
 -- would parse as a prefix << to stdio and silently write to the terminal
 -- instead of the file.
-ckpt = openOut "Y0.m2";
+-- Written to a temporary name and promoted only if it verifies. A failed
+-- assert does NOT halt a script read from stdin, so the rename has to be
+-- guarded by an if -- otherwise a corrupt checkpoint gets promoted anyway and
+-- stage 2 loads it. Better to leave no checkpoint than a poisonous one.
+ckpt = openOut "Y0.m2.tmp";
 ckpt << "kk = ZZ/" << char kk << ";" << endl;
 ckpt << "P18 = kk[" << demark(",", toString \ gens P18) << "];" << endl;
 ckpt << "Y0 = " << toExternalString Y0 << ";" << endl;
 close ckpt;
 
--- Verify the checkpoint round-trips before this job exits, so a failure here
--- is not discovered at the start of an expensive stage-2 job.
-assert(#lines get "Y0.m2" == 3);
-assert(match("^Y0 = ideal", (lines get "Y0.m2")#2));
-<< "wrote Y0.m2 (" << #(get "Y0.m2") << " bytes)" << endl;
+ckptLines = lines get "Y0.m2.tmp";
+ckptOK = #ckptLines == 3 and match("^kk = ZZ/", ckptLines#0) and match("^P18 = kk\\[", ckptLines#1) and match("^Y0 = ideal", ckptLines#2);
+if ckptOK then (moveFile("Y0.m2.tmp", "Y0.m2"); << "wrote Y0.m2 (" << #(get "Y0.m2") << " bytes)" << endl) else (removeFile "Y0.m2.tmp"; error "checkpoint verification failed -- no Y0.m2 written");
