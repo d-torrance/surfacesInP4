@@ -1,0 +1,163 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-18-2026 07:59:50
+Job ID:    11977859
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+host=atl1-1-01-002-22-1.pace.gatech.edu stage=Y0 length_limit=6 start=Tue Aug 18 07:59:52 AM EDT 2026
+threads=8 parallelize_by_degree=false
+partition=cpu-large mem=184320M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 1 of the genus-21 computation: build the artinian reduction Y0 and
+     -- write it to disk, so the expensive minimalBetti attempts (stage 2) can be
+     -- rerun without repeating this work.
+     --
+     -- Mirrors "surface in M2/K3OfGenus21.m2" lines 1-21.
+     
+     needsPackage "NongeneralTypeSurfacesInP4"
+
+o1 = NongeneralTypeSurfacesInP4
+
+o1 : Package
+
+i2 : kk=ZZ/nextPrime 10^4;P4=kk[x_0..x_4];E=kk[e_0..e_4,SkewCommutative=>true];
+
+i5 : setRandomSeed("fix decomposition of D");
+ -- setting random seed to 126999714237773151837603464895432862570322709
+
+i6 : 
+     minimalBetti(X=K3surfaceD11S11Ln(P4,0))
+
+            0 1  2 3 4
+o6 = total: 1 9 13 7 2
+         0: 1 .  . . .
+         1: . .  . . .
+         2: . .  . . .
+         3: . .  . . .
+         4: . 9  8 . .
+         5: . .  5 7 2
+
+o6 : BettiTally
+
+i7 : elapsedTime betti(Y=minimalModelOfK3(X,Verbose=>true))
+ -- 1.60192s elapsed
+ -- 2.96413s elapsed
+time to compute the canonical divisor:
+time to decompose the canonical divisor:
+multilicities of canonical divisor = {1, 1, 1, 1, 5}
+genus of the minimal model = 21
+"/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/NongeneralTypeSurfacesInP4.m2":418:10:(3):[5]: error: assertion failed
+"/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/NongeneralTypeSurfacesInP4.m2":418:10:(3): entering debugger (enter 'help' to see commands)
+"/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/NongeneralTypeSurfacesInP4.m2":418:4-418:31: --source code:
+    assert(numgens res1 == g+1);
+
+ii8 : 
+      P21=ring Y
+stdio:14:8:(3): error: no method found for applying ring to:
+     argument   :  null (of class Nothing)
+
+ii9 : 
+      elapsedTime (dim Y, degree Y, genera Y)
+stdio:16:16:(3): error: no method found for applying dim to:
+     argument   :  null (of class Nothing)
+ -- .000177385s elapsed
+
+ii10 : 
+       L4=ideal (vars P21)_{0..4}
+stdio:18:14:(3): error: no method found for applying vars to:
+     argument   :  P21 (of class Symbol)
+
+ii11 : elapsedTime X'=trim ker map(P21/Y,P4,gens L4);
+stdio:19:31:(3):[3]: error: no method for binary operator / applied to objects:
+            P21 (of class Symbol)
+      /     null (of class Nothing)
+ -- .000190426s elapsed
+
+ii12 : assert(
+           X==X'
+           )
+stdio:21:5:(3): error: no method for binary operator == applied to objects:
+                    4          3            2 2            3  . (of class Ideal)
+            ideal (x x  + 4761x x x  - 4665x x x  + 4009x x x .
+                    0 3        0 1 3        0 1 3        0 1 3.
+     ==     X' (of class Symbol)
+
+ii13 : 
+       -* computing betti numbers using the artinian reduction *-
+       P18=kk[(gens P21)_{0..18}]
+stdio:25:12:(3): error: no method found for applying generators to:
+     argument   :  P21 (of class Symbol)
+
+ii14 : Y0=sub(Y,P18);dim Y0, degree Y0
+stdio:26:6:(3): error: no method found for applying substitute to:
+     argument 1 :  null (of class Nothing)
+     argument 2 :  P18 (of class Symbol)
+stdio:26:17:(3): error: no method found for applying dim to:
+     argument   :  Y0 (of class Symbol)
+
+ii16 : assert(dim Y0==0)
+stdio:27:10:(3): error: no method found for applying dim to:
+     argument   :  Y0 (of class Symbol)
+
+ii17 : 
+       -- Hilbert function should be (1,19,19,1), total length 40.
+       apply(5, i -> hilbertFunction(i, P18/Y0))
+stdio:30:36:(3):[2]: error: no method for binary operator / applied to objects:
+            P18 (of class Symbol)
+      /     Y0 (of class Symbol)
+
+ii18 : 
+       -- Checkpoint. Stage 2 reconstructs P18 and Y0 by loading this file.
+       --
+       -- One statement per line on purpose: reading from stdin, M2 evaluates any line
+       -- that forms a complete expression, so a continuation line beginning with "<<"
+       -- would parse as a prefix << to stdio and silently write to the terminal
+       -- instead of the file.
+       ckpt = openOut "Y0.m2";
+
+ii19 : ckpt << "kk = ZZ/" << char kk << ";" << endl;
+
+ii20 : ckpt << "P18 = kk[" << demark(",", toString \ gens P18) << "];" << endl;
+stdio:40:50:(3): error: no method found for applying generators to:
+     argument   :  P18 (of class Symbol)
+
+ii21 : ckpt << "Y0 = " << toExternalString Y0 << ";" << endl;
+
+ii22 : close ckpt;
+
+ii23 : 
+       -- Verify the checkpoint round-trips before this job exits, so a failure here
+       -- is not discovered at the start of an expensive stage-2 job.
+       assert(#lines get "Y0.m2" == 3);
+stdio:46:6:(3): error: assertion failed
+
+ii24 : assert(match("^Y0 = ideal", (lines get "Y0.m2")#2));
+stdio:47:47:(3):[1]: error: array index 2 out of bounds 0 .. 1
+
+ii25 : << "wrote Y0.m2 (" << #(get "Y0.m2") << " bytes)" << endl;
+wrote Y0.m2 (33 bytes)
+
+ii26 : 
+ -- 2303.28s elapsed
+
+i27 : 
+end=Tue Aug 18 08:38:20 AM EDT 2026 m2_exit=0
+TRANSCRIPT CONTAINS ERRORS -- see above
+---------------------------------------
+Begin Slurm Epilog: Aug-18-2026 08:38:20
+Job ID:        11977859
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=8,mem=180G,node=1
+Rsrc Used:     cput=05:08:24,vmem=0,walltime=00:38:33,mem=1018744K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-01-002-22-1
+---------------------------------------
