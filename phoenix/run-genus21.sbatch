@@ -56,7 +56,13 @@ PKG_DIR="$SLURM_SUBMIT_DIR/surface in M2"
 
 case "$STAGE" in
     Y0)    SCRIPT="$SLURM_SUBMIT_DIR/phoenix/make-Y0.m2" ;;
-    betti) SCRIPT="$SLURM_SUBMIT_DIR/phoenix/betti-ladder.m2" ;;
+    betti) SCRIPT="$SLURM_SUBMIT_DIR/phoenix/betti-ladder.m2"
+           # betti-ladder.m2 loads Y0.m2 from the working directory. Seed it
+           # from the committed copy if stage 1 has not been run here.
+           if [ ! -f "$WORKDIR/Y0.m2" ]; then
+               cp "$SLURM_SUBMIT_DIR/phoenix/Y0.m2" "$WORKDIR/Y0.m2"
+               echo "seeded Y0.m2 from the committed copy"
+           fi ;;
     *)     echo "unknown STAGE=$STAGE (expected Y0 or betti)"; exit 2 ;;
 esac
 
