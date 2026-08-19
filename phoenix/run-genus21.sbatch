@@ -24,7 +24,7 @@
 # big-memory rungs raise this: you are already billed for the node's
 # memory share, so unused cores are wasted money.
 #SBATCH --mem=180G
-#SBATCH --time=12:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --output=%x-%j.out
 # No --error: with only --output set, Slurm merges stderr into it, so M2's
 # elapsedTime output (which goes to stderr) appears next to the computation
@@ -72,10 +72,16 @@ M2 --version
 # which then reads the REST OF THE SCRIPT as debugger commands. Every
 # subsequent line runs in a context where nothing is defined, burying the
 # real failure under a cascade of "no method found ... (of class Symbol)".
-stdbuf -oL M2 -q --no-debug -e "path = prepend(\"$PKG_DIR/\", path)" < "$SCRIPT"
-m2_status=${PIPESTATUS[0]}
+/usr/bin/time -v stdbuf -oL M2 -q --no-debug -e "path = prepend(\"$PKG_DIR/\", path)" < "$SCRIPT"
+m2_status=$?
 
 echo "end=$(date) m2_exit=$m2_status"
+
+if [ "$m2_status" -eq 137 ]; then
+    echo "OOM-KILLED (signal 9): raise --mem and resubmit."
+    echo "Peak RSS is in the 'Maximum resident set size' line above."
+    exit 137
+fi
 
 # M2 reading from stdin reports errors and continues, so it exits 0 even when
 # things went wrong. Scan the transcript so Slurm's job state means something.
