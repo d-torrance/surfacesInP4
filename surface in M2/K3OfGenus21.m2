@@ -3,8 +3,7 @@ needsPackage"NongeneralTypeSurfacesInP4"
 kk=ZZ/nextPrime 10^4;P4=kk[x_0..x_4];E=kk[e_0..e_4,SkewCommutative=>true];
 setRandomSeed("fix decomposition of D");
 minimalBetti(X=K3surfaceD11S11Ln(P4,0))
-elapsedTime betti(Y=minimalModelOfK3(X,Verbose=>true))
-
+elapsedTime betti(Y=minimalModelOfK3(X,Verbose=>true)) -- 20240s elapsed
 P21=ring Y
 
 elapsedTime (dim Y, degree Y, genera Y)
@@ -21,6 +20,10 @@ Y0=sub(Y,P18);dim Y0, degree Y0
 assert(dim Y0==0)
 -* two much memory on my machine but might work on a cluster: *-
 elapsedTime minimalBetti(Y0,DegreeLimit=>3,LengthLimit=>10)
+-* perhaps faster *-
+elapsedTime betti(fY0=res(Y0,Strategy=>Nonminimal,LengthLimit=>10))
 
-
-
+posc=positions(degrees fY0_10,d->d_0==11)
+posr=positions(degrees fY0_9,d->d_0==11)
+betti(M1=fY0.dd_10^posr_posc)
+betti(M=map(kk^(rank target M1),,sub(M1,kk)))
