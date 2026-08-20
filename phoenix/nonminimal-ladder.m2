@@ -1,0 +1,46 @@
+-- Stage 3: nonminimal resolution of the artinian reduction, and extraction of
+-- the Koszul matrix M whose rank gives the middle Betti number.
+--
+-- Why this rather than minimalBetti (see phoenix/README-genus21.md):
+-- minimalBetti computes the same nonminimal resolution and then calls
+-- rawMinimalBetti on it. That minimalization is dense Gaussian elimination,
+-- and it is what exhausted 180 GB after 22.5 hours at LengthLimit => 6.
+-- minimalBetti also quietly asks the resolution for LengthLimit + 1 steps
+-- (OldChainComplexes/betti.m2), so this does strictly less work.
+--
+-- Environment:
+--   LENGTH_LIMIT           homological degree to stop at
+--   DEGREE_LIMIT           strand cutoff; 3 matches Frank's minimalBetti call
+--   M2_THREADS             cores available; must match --cpus-per-task
+--   PARALLELIZE_BY_DEGREE  "true" for the memory-hungry parallel strategy
+
+load "Y0.m2"
+
+envValue = (name, default) -> (
+    s := getenv name;
+    if s === null or s === "" then default else value s)
+
+lengthLimit = envValue("LENGTH_LIMIT", 6)
+degreeLimit = envValue("DEGREE_LIMIT", 3)
+parallelizeByDegree = envValue("PARALLELIZE_BY_DEGREE", false)
+numTBBThreads = envValue("M2_THREADS", 1)
+
+<< "-- Nonminimal: LengthLimit => " << lengthLimit << ", DegreeLimit => " << degreeLimit << ", ParallelizeByDegree => " << parallelizeByDegree << ", numTBBThreads => " << numTBBThreads << endl;
+
+elapsedTime fY0 = res(Y0, Strategy => Nonminimal, DegreeLimit => degreeLimit, LengthLimit => lengthLimit, ParallelizeByDegree => parallelizeByDegree);
+
+<< "-- nonminimal ranks: " << apply(lengthLimit+1, i -> rank fY0_i) << endl;
+betti fY0
+
+-- Frank's extraction (K3OfGenus21.m2 lines 26-29). Only meaningful once the
+-- resolution reaches step 10, where the degree-11 block of d_10 is the
+-- 1755182 x 1755182 Koszul matrix.
+if lengthLimit >= 10 then (
+    elapsedTime posc = positions(degrees fY0_10, d -> d_0 == 11);
+    elapsedTime posr = positions(degrees fY0_9, d -> d_0 == 11);
+    << "-- block size: " << #posr << " rows x " << #posc << " cols (expect 1755182 x 1755182)" << endl;
+    elapsedTime M1 = fY0.dd_10^posr_posc;
+    betti M1;
+    elapsedTime M = map(kk^(rank target M1), , sub(M1, kk));
+    << "-- M: " << numrows M << " x " << numcols M << " over " << describe ring M << endl;
+    )
