@@ -43,4 +43,26 @@ if lengthLimit >= 10 then (
     betti M1;
     elapsedTime M = map(kk^(rank target M1), , sub(M1, kk));
     << "-- M: " << numrows M << " x " << numcols M << " over " << describe ring M << endl;
+
+    -- Do NOT call rank M. matrix1.m2:673 sends it to basicRank
+    -- (quotring.m2:151), which does mutableMatrix(f, Dense=>true) with Dense
+    -- hardcoded, reaching DMat<ARingZZpFlint> with 8-byte entries: 1755182^2
+    -- is ~24.6 TB, allocated up front in nmod_mat_init. smat.hpp has no rank
+    -- implementation at all, so there is no dense/sparse switch to flip.
+    --
+    -- syz is the sparse route. Over a field ZZ/p (not a polynomial ring),
+    -- comp-gb.cpp:50-64 short-circuits to GaussElimComputation (e/gauss.cpp),
+    -- which eliminates on sparse vec lists with a Markowitz-style pivot
+    -- heuristic. Note gauss.hpp:21-25 calls itself "very slow ... To be
+    -- rewritten" and has no fill-in control, so this may still be
+    -- intractable -- but it will not attempt an n^2 allocation.
+    --
+    -- numberOfExtraSyzygies = nullity(M) - 75582, zero iff the genus-21 K3
+    -- has the expected Betti numbers.
+    << "-- attempting syz M (sparse Gaussian elimination in the engine)" << endl;
+    elapsedTime sM = syz M;
+    nullity = numcols sM;
+    << "-- nullity = " << nullity << ", expected 75582" << endl;
+    << "-- numberOfExtraSyzygies = " << (nullity - 75582) << endl;
+    << "-- rank M = " << (numcols M - nullity) << ", expected 1679600" << endl;
     )
