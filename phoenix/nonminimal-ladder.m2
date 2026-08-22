@@ -32,6 +32,15 @@ elapsedTime fY0 = res(Y0, Strategy => Nonminimal, DegreeLimit => degreeLimit, Le
 << "-- nonminimal ranks: " << apply(lengthLimit+1, i -> rank fY0_i) << endl;
 betti fY0
 
+-- Every run so far has sat at 105-112% CPU with system time around 40% of
+-- user time and ~1e9 minor page faults, independent of thread count or
+-- ParallelizeByDegree. GC mark phases touch all live memory, so
+-- numGCs * heapSize is the quantity to compare against those page faults.
+-- If collection dominates, GC_INITIAL_HEAP_SIZE and GC_FREE_SPACE_DIVISOR
+-- are the levers, not cores.
+gcs = GCstats();
+<< "-- GC: numGCs=" << gcs#"numGCs" << " heapSize=" << gcs#"heapSize" << " gcCpuTimeSecs=" << gcs#"gcCpuTimeSecs" << " freeSpaceDivisor=" << gcs#"GC_free_space_divisor" << " numGCThreads=" << gcs#"numGCThreads" << endl;
+
 -- Frank's extraction (K3OfGenus21.m2 lines 26-29). Only meaningful once the
 -- resolution reaches step 10, where the degree-11 block of d_10 is the
 -- 1755182 x 1755182 Koszul matrix.

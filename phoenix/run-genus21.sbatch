@@ -51,6 +51,20 @@ DEGREE_LIMIT="${DEGREE_LIMIT:-3}"
 # machine and sees all 128, while the cgroup grants only what we asked
 # for -- oversubscription, not speedup.
 M2_THREADS="${SLURM_CPUS_PER_TASK:-1}"
+
+# Boehm GC tuning. Every run has been pinned near 100% CPU with heavy system
+# time and ~1e9 minor page faults regardless of cores, which points at
+# allocation and collection rather than compute. A large initial heap and a
+# smaller free-space divisor both trade memory for fewer collections.
+# GC_INITIAL_HEAP_SIZE is in bytes; keep it well under --mem.
+if [ -n "${GC_INITIAL_HEAP_GB:-}" ]; then
+    export GC_INITIAL_HEAP_SIZE=$(( GC_INITIAL_HEAP_GB * 1024 * 1024 * 1024 ))
+    echo "GC_INITIAL_HEAP_SIZE=$GC_INITIAL_HEAP_SIZE (${GC_INITIAL_HEAP_GB}G)"
+fi
+if [ -n "${GC_FREE_SPACE_DIVISOR:-}" ]; then
+    export GC_FREE_SPACE_DIVISOR
+    echo "GC_FREE_SPACE_DIVISOR=$GC_FREE_SPACE_DIVISOR (default 3; lower collects less often)"
+fi
 export LENGTH_LIMIT PARALLELIZE_BY_DEGREE M2_THREADS DEGREE_LIMIT
 
 # Work in a per-job directory on scratch, but keep the Y0 checkpoint somewhere
