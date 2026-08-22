@@ -1,0 +1,170 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-21-2026 23:04:11
+Job ID:    12208640
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+GC_INITIAL_HEAP_SIZE=107374182400 (100G)
+GC_FREE_SPACE_DIVISOR=1 (default 3; lower collects less often)
+host=atl1-1-01-005-31-2.pace.gatech.edu stage=nonmin length_limit=6 start=Fri Aug 21 11:04:15 PM EDT 2026
+threads=8 degree_limit=3 parallelize_by_degree=false
+partition=cpu-large mem=184320M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 3: nonminimal resolution of the artinian reduction, and extraction of
+     -- the Koszul matrix M whose rank gives the middle Betti number.
+     --
+     -- Why this rather than minimalBetti (see phoenix/README-genus21.md):
+     -- minimalBetti computes the same nonminimal resolution and then calls
+     -- rawMinimalBetti on it. That minimalization is dense Gaussian elimination,
+     -- and it is what exhausted 180 GB after 22.5 hours at LengthLimit => 6.
+     -- minimalBetti also quietly asks the resolution for LengthLimit + 1 steps
+     -- (OldChainComplexes/betti.m2), so this does strictly less work.
+     --
+     -- Environment:
+     --   LENGTH_LIMIT           homological degree to stop at
+     --   DEGREE_LIMIT           strand cutoff; 3 matches Frank's minimalBetti call
+     --   M2_THREADS             cores available; must match --cpus-per-task
+     --   PARALLELIZE_BY_DEGREE  "true" for the memory-hungry parallel strategy
+     
+     load "Y0.m2"
+
+i2 : 
+     envValue = (name, default) -> (
+         s := getenv name;
+         if s === null or s === "" then default else value s)
+
+o2 = envValue
+
+o2 : FunctionClosure
+
+i3 : 
+     lengthLimit = envValue("LENGTH_LIMIT", 6)
+
+o3 = 6
+
+i4 : degreeLimit = envValue("DEGREE_LIMIT", 3)
+
+o4 = 3
+
+i5 : parallelizeByDegree = envValue("PARALLELIZE_BY_DEGREE", false)
+
+o5 = false
+
+i6 : numTBBThreads = envValue("M2_THREADS", 1)
+
+o6 = 8
+
+i7 : 
+     << "-- Nonminimal: LengthLimit => " << lengthLimit << ", DegreeLimit => " << degreeLimit << ", ParallelizeByDegree => " << parallelizeByDegree << ", numTBBThreads => " << numTBBThreads << endl;
+-- Nonminimal: LengthLimit => 6, DegreeLimit => 3, ParallelizeByDegree => false, numTBBThreads => 8
+
+i8 : 
+     elapsedTime fY0 = res(Y0, Strategy => Nonminimal, DegreeLimit => degreeLimit, LengthLimit => lengthLimit, ParallelizeByDegree => parallelizeByDegree);
+ -- 14797s elapsed
+
+i9 : 
+     << "-- nonminimal ranks: " << apply(lengthLimit+1, i -> rank fY0_i) << endl;
+-- nonminimal ranks: {1, 190, 2280, 14535, 62016, 193800, 465120}
+
+i10 : betti fY0
+
+             0   1    2     3     4      5      6
+o10 = total: 1 190 2280 14535 62016 193800 465120
+          0: 1   .    .     .     .      .      .
+          1: . 171 1938 11628 46512 135660 302328
+          2: .  18  324  2754 14688  55080 154224
+          3: .   1   18   153   816   3060   8568
+
+o10 : BettiTally
+
+i11 : 
+      -- Every run so far has sat at 105-112% CPU with system time around 40% of
+      -- user time and ~1e9 minor page faults, independent of thread count or
+      -- ParallelizeByDegree. GC mark phases touch all live memory, so
+      -- numGCs * heapSize is the quantity to compare against those page faults.
+      -- If collection dominates, GC_INITIAL_HEAP_SIZE and GC_FREE_SPACE_DIVISOR
+      -- are the levers, not cores.
+      gcs = GCstats();
+
+i12 : << "-- GC: numGCs=" << gcs#"numGCs" << " heapSize=" << gcs#"heapSize" << " gcCpuTimeSecs=" << gcs#"gcCpuTimeSecs" << " freeSpaceDivisor=" << gcs#"GC_free_space_divisor" << " numGCThreads=" << gcs#"numGCThreads" << endl;
+-- GC: numGCs=47 heapSize=91994497024 gcCpuTimeSecs=0 freeSpaceDivisor=1 numGCThreads=16
+
+i13 : 
+      -- Frank's extraction (K3OfGenus21.m2 lines 26-29). Only meaningful once the
+      -- resolution reaches step 10, where the degree-11 block of d_10 is the
+      -- 1755182 x 1755182 Koszul matrix.
+      if lengthLimit >= 10 then (
+          elapsedTime posc = positions(degrees fY0_10, d -> d_0 == 11);
+          elapsedTime posr = positions(degrees fY0_9, d -> d_0 == 11);
+          << "-- block size: " << #posr << " rows x " << #posc << " cols (expect 1755182 x 1755182)" << endl;
+          elapsedTime M1 = fY0.dd_10^posr_posc;
+          betti M1;
+          elapsedTime M = map(kk^(rank target M1), , sub(M1, kk));
+          << "-- M: " << numrows M << " x " << numcols M << " over " << describe ring M << endl;
+      
+          -- Do NOT call rank M. matrix1.m2:673 sends it to basicRank
+          -- (quotring.m2:151), which does mutableMatrix(f, Dense=>true) with Dense
+          -- hardcoded, reaching DMat<ARingZZpFlint> with 8-byte entries: 1755182^2
+          -- is ~24.6 TB, allocated up front in nmod_mat_init. smat.hpp has no rank
+          -- implementation at all, so there is no dense/sparse switch to flip.
+          --
+          -- syz is the sparse route. Over a field ZZ/p (not a polynomial ring),
+          -- comp-gb.cpp:50-64 short-circuits to GaussElimComputation (e/gauss.cpp),
+          -- which eliminates on sparse vec lists with a Markowitz-style pivot
+          -- heuristic. Note gauss.hpp:21-25 calls itself "very slow ... To be
+          -- rewritten" and has no fill-in control, so this may still be
+          -- intractable -- but it will not attempt an n^2 allocation.
+          --
+          -- numberOfExtraSyzygies = nullity(M) - 75582, zero iff the genus-21 K3
+          -- has the expected Betti numbers.
+          << "-- attempting syz M (sparse Gaussian elimination in the engine)" << endl;
+          elapsedTime sM = syz M;
+          nullity = numcols sM;
+          << "-- nullity = " << nullity << ", expected 75582" << endl;
+          << "-- numberOfExtraSyzygies = " << (nullity - 75582) << endl;
+          << "-- rank M = " << (numcols M - nullity) << ", expected 1679600" << endl;
+          )
+
+i14 : 
+	Command being timed: "stdbuf -oL M2 -q --no-debug -e path = prepend("/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/", path)"
+	User time (seconds): 12416.82
+	System time (seconds): 2938.82
+	Percent of CPU this job got: 103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:06:44
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 128776024
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1788
+	Minor (reclaiming a frame) page faults: 480332520
+	Voluntary context switches: 195184
+	Involuntary context switches: 45582
+	Swaps: 0
+	File system inputs: 852368
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+end=Sat Aug 22 03:11:00 AM EDT 2026 m2_exit=0
+---------------------------------------
+Begin Slurm Epilog: Aug-22-2026 03:11:00
+Job ID:        12208640
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=8,mem=180G,node=1
+Rsrc Used:     cput=1-08:54:48,vmem=0,walltime=04:06:51,mem=185500692K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-01-005-31-2
+---------------------------------------

@@ -1,0 +1,78 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-20-2026 00:42:24
+Job ID:    12042044
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+host=atl1-1-02-003-18-2.pace.gatech.edu stage=betti length_limit=5 start=Thu Aug 20 12:42:27 AM EDT 2026
+threads=24 parallelize_by_degree=false
+partition=cpu-large mem=757760M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 2: minimal Betti numbers of the artinian reduction.
+     --
+     -- Reads Y0.m2 (written by make-Y0.m2). Controlled by environment variables:
+     --   LENGTH_LIMIT           homological degree to stop at (6, 8, 10)
+     --   M2_THREADS             cores available; must match --cpus-per-task
+     --   PARALLELIZE_BY_DEGREE  "true" enables the memory-hungry parallel strategy
+     --
+     -- Run at increasing length limits and watch MaxRSS: two data points
+     -- extrapolate to the full computation, and each rung gives partial Betti
+     -- numbers that are useful in their own right.
+     
+     load "Y0.m2"
+
+i2 : 
+     envValue = (name, default) -> (
+         s := getenv name;
+         if s === null or s === "" then default else value s)
+
+o2 = envValue
+
+o2 : FunctionClosure
+
+i3 : 
+     lengthLimit = envValue("LENGTH_LIMIT", 6)
+
+o3 = 5
+
+i4 : parallelizeByDegree = envValue("PARALLELIZE_BY_DEGREE", false)
+
+o4 = false
+
+i5 : 
+     -- Left at its default of 0, TBB uses every core it can see on the machine,
+     -- which on a shared node is far more than Slurm granted us.
+     numTBBThreads = envValue("M2_THREADS", 1)
+
+o5 = 24
+
+i6 : 
+     -- One line on purpose: see the note in make-Y0.m2 about continuation lines
+     -- beginning with "<<" when M2 reads from stdin.
+     << "-- LengthLimit => " << lengthLimit << ", ParallelizeByDegree => " << parallelizeByDegree << ", numTBBThreads => " << numTBBThreads << endl;
+-- LengthLimit => 5, ParallelizeByDegree => false, numTBBThreads => 24
+
+i7 : 
+     elapsedTime b = minimalBetti(Y0,
+         DegreeLimit => 3,
+         LengthLimit => lengthLimit,
+         ParallelizeByDegree => parallelizeByDegree)
+[2026-08-20T12:42:46.286] error: *** JOB 12042044 ON atl1-1-02-003-18-2 CANCELLED AT 2026-08-20T12:42:46 DUE TO TIME LIMIT ***
+---------------------------------------
+Begin Slurm Epilog: Aug-20-2026 12:42:49
+Job ID:        12042044
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=24,mem=740G,node=1
+Rsrc Used:     cput=12-00:11:12,vmem=0,walltime=12:00:28,mem=160147376K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-02-003-18-2
+---------------------------------------

@@ -1,0 +1,156 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-17-2026 11:44:49
+Job ID:    11936877
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  spack-m2
+Partition: cpu-small
+QOS:       inferno
+---------------------------------------
+host=atl1-1-02-007-6-2.pace.gatech.edu start=Mon Aug 17 11:44:50 AM EDT 2026
+1.3.0.dev0 (87d4c1d707f64de00fa704dcb7fd76776991700b)
+[ ] orur2pc fflas-ffpack@2.5.0 staging (38m59s)
+[ ] 3k5dhzt csdp@6.2.0 staging (38m59s)
+[ ] 3k5dhzt csdp@6.2.0 edit (38m59s)
+[ ] 3k5dhzt csdp@6.2.0 build (38m59s)
+[ ] orur2pc fflas-ffpack@2.5.0 autoreconf (39m00s)
+[ ] orur2pc fflas-ffpack@2.5.0 configure (39m00s)
+[ ] 3k5dhzt csdp@6.2.0 install (39m06s)
+[+] 3k5dhzt csdp@6.2.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/csdp-6.2.0-3k5dhztqzxkgqbmh6dwzhpddavg7b5an (39m06s)
+[x] orur2pc fflas-ffpack@2.5.0 failed: /tmp/dtorrance9/spack-stage/spack-stage-fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s-sfpmt7vo.log (59m28s)
+-- lines 15 to 119 --
+  ==> [2026-08-17-12:24:17.192695] Find complete: ['/usr/include'] ['cblas.h', 'cblas.hpp', 'cblas.hxx', 'cblas.hh', 'cblas.H', 'cblas.txx', 'cblas.tcc', 'cblas.icc', 'cblas.mod', 'cblas.inc', 'lapacke.h', 'lapacke.hpp', 'lapacke.hxx', 'lapacke.hh', 'lapacke.H', 'lapacke.txx', 'lapacke.tcc', 'lapacke.icc', 'lapacke.mod', 'lapacke.inc']
+  ==> [2026-08-17-12:24:17.192988] Find (max depth = None): ['/usr/lib'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:24:17.193166] Find complete: ['/usr/lib'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:24:17.193208] Find (max depth = None): ['/usr/lib64'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:24:17.195730] Find complete: ['/usr/lib64'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:24:17.195764] Find (max depth = None): ['/usr'] ['libopenblas.so', 'openblas.so']
+> ==> [2026-08-17-12:24:17.225208] find must skip /usr/libexec/nhc: [Errno 13] Permission denied: '/usr/libexec/nhc'
+> ==> [2026-08-17-12:24:17.226664] find must skip /usr/local/qualys: [Errno 13] Permission denied: '/usr/local/qualys'
+> ==> [2026-08-17-12:24:17.232892] find must skip /usr/share/empty.sshd: [Errno 13] Permission denied: '/usr/share/empty.sshd'
+> ==> [2026-08-17-12:24:17.274983] find must skip /usr/lib/.build-id/a5/284f678a0fdaf2743e2e26784b8fca19e5cf35: [Errno 13] Permission denied: '/usr/lib/.build-id/a5/284f678a0fdaf2743e2e26784b8fca19e5cf35'
+> ==> [2026-08-17-12:24:17.280503] find must skip /usr/lib/.build-id/cc/78deb04c8d0e8157269e01180a5c368af66601: [Errno 13] Permission denied: '/usr/lib/.build-id/cc/78deb04c8d0e8157269e01180a5c368af66601'
+> ==> [2026-08-17-12:24:17.322517] find must skip /usr/share/doc/qualys-cloud-agent-7.4.2-27: [Errno 13] Permission denied: '/usr/share/doc/qualys-cloud-agent-7.4.2-27'
+> ==> [2026-08-17-12:24:17.401135] find must skip /usr/share/polkit-1/rules.d: [Errno 13] Permission denied: '/usr/share/polkit-1/rules.d'
+> ==> [2026-08-17-12:24:17.427034] find must skip /usr/libexec/initscripts/legacy-actions/auditd: [Errno 13] Permission denied: '/usr/libexec/initscripts/legacy-actions/auditd'
+> ==> [2026-08-17-12:24:17.578139] find must skip /usr/local/pace-apps/manual/packages/gaussian: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/gaussian'
+> ==> [2026-08-17-12:24:17.578398] find must skip /usr/local/pace-apps/manual/packages/gaussview: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/gaussview'
+> ==> [2026-08-17-12:24:17.605272] find must skip /usr/local/pace-apps/manual/packages/pace-scs: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/pace-scs'
+> ==> [2026-08-17-12:24:17.630757] find must skip /usr/local/pace-apps/manual/packages/vllm-services: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vllm-services'
+> ==> [2026-08-17-12:24:18.018836] find must skip /usr/local/pace-apps/manual/packages/ngc-images/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/.git'
+> ==> [2026-08-17-12:24:18.019095] find must skip /usr/local/pace-apps/manual/packages/ngc-images/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/.gitlab'
+> ==> [2026-08-17-12:24:18.019338] find must skip /usr/local/pace-apps/manual/packages/ngc-images/pace-modules: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/pace-modules'
+> ==> [2026-08-17-12:24:18.053886] find must skip /usr/local/pace-apps/manual/packages/q-chem/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/q-chem/.git'
+> ==> [2026-08-17-12:24:18.054127] find must skip /usr/local/pace-apps/manual/packages/q-chem/6.3.1: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/q-chem/6.3.1'
+> ==> [2026-08-17-12:24:18.086037] find must skip /usr/local/pace-apps/manual/packages/singularity_images/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/.git'
+> ==> [2026-08-17-12:24:18.086244] find must skip /usr/local/pace-apps/manual/packages/singularity_images/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/.gitlab'
+> ==> [2026-08-17-12:24:18.110545] find must skip /usr/local/pace-apps/manual/packages/vasp/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/.git'
+> ==> [2026-08-17-12:24:18.110777] find must skip /usr/local/pace-apps/manual/packages/vasp/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/.gitlab'
+> ==> [2026-08-17-12:24:18.110976] find must skip /usr/local/pace-apps/manual/packages/vasp/5.4.4: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/5.4.4'
+> ==> [2026-08-17-12:24:18.111156] find must skip /usr/local/pace-apps/manual/packages/vasp/6.3.2: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.3.2'
+> ==> [2026-08-17-12:24:18.111383] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2'
+> ==> [2026-08-17-12:24:18.111641] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-hdf5: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-hdf5'
+> ==> [2026-08-17-12:24:18.111885] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsol: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsol'
+> ==> [2026-08-17-12:24:18.112093] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsolpp: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsolpp'
+> ==> [2026-08-17-12:24:18.112369] find must skip /usr/local/pace-apps/manual/packages/vasp/6.5.1: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.5.1'
+> ==> [2026-08-17-12:24:18.112596] find must skip /usr/local/pace-apps/manual/packages/vasp/6.5.1-vtst: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.5.1-vtst'
+> ==> [2026-08-17-12:24:33.046750] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/carla: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/carla'
+> ==> [2026-08-17-12:24:33.047052] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/cuda-opengl: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/cuda-opengl'
+> ==> [2026-08-17-12:24:33.049562] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/qgis: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/qgis'
+> ==> [2026-08-17-12:24:33.049764] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/r: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/r'
+> ==> [2026-08-17-12:24:33.049979] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/sagemath: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/sagemath'
+  ==> [2026-08-17-12:25:02.238352] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/python/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/python/linuxppc64'
+  ==> [2026-08-17-12:25:44.668042] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/IUS/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/IUS/linuxppc64'
+  ==> [2026-08-17-12:25:44.670207] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/MODELSIM/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/MODELSIM/linuxppc64'
+  ==> [2026-08-17-12:25:44.672443] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/OSCI/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/OSCI/linuxppc64'
+  ==> [2026-08-17-12:25:44.674687] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/VCS/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/VCS/linuxppc64'
+  ==> [2026-08-17-12:25:44.675693] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/Z01X/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/Z01X/linuxppc64'
+  ==> [2026-08-17-12:25:44.677940] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/lib/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/lib/linuxppc64'
+  ==> [2026-08-17-12:25:44.680915] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/snps_unified/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/snps_unified/linuxppc64'
+> ==> [2026-08-17-12:25:44.846831] find must skip /usr/local/pace-apps/manual/packages/vasp/pace-modules/lmod/linux-rhel9-x86_64/openmpi/4.1.8: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/pace-modules/lmod/linux-rhel9-x86_64/openmpi/4.1.8'
+  ==> [2026-08-17-12:28:51.140732] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/specman/novas_sn/lib/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/specman/novas_sn/lib/linuxppc64'
+  ==> [2026-08-17-12:34:43.923751] Find complete: ['/usr'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:34:43.924165] Find (max depth = None): ['/usr/lib'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:34:43.924390] Find complete: ['/usr/lib'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:34:43.924439] Find (max depth = None): ['/usr/lib64'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:34:43.926952] Find complete: ['/usr/lib64'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:34:43.926987] Find (max depth = None): ['/usr'] ['libopenblas.so', 'openblas.so']
+> ==> [2026-08-17-12:34:43.957109] find must skip /usr/libexec/nhc: [Errno 13] Permission denied: '/usr/libexec/nhc'
+> ==> [2026-08-17-12:34:43.958505] find must skip /usr/local/qualys: [Errno 13] Permission denied: '/usr/local/qualys'
+> ==> [2026-08-17-12:34:43.964769] find must skip /usr/share/empty.sshd: [Errno 13] Permission denied: '/usr/share/empty.sshd'
+> ==> [2026-08-17-12:34:44.007186] find must skip /usr/lib/.build-id/a5/284f678a0fdaf2743e2e26784b8fca19e5cf35: [Errno 13] Permission denied: '/usr/lib/.build-id/a5/284f678a0fdaf2743e2e26784b8fca19e5cf35'
+> ==> [2026-08-17-12:34:44.012756] find must skip /usr/lib/.build-id/cc/78deb04c8d0e8157269e01180a5c368af66601: [Errno 13] Permission denied: '/usr/lib/.build-id/cc/78deb04c8d0e8157269e01180a5c368af66601'
+> ==> [2026-08-17-12:34:44.053555] find must skip /usr/share/doc/qualys-cloud-agent-7.4.2-27: [Errno 13] Permission denied: '/usr/share/doc/qualys-cloud-agent-7.4.2-27'
+> ==> [2026-08-17-12:34:44.132010] find must skip /usr/share/polkit-1/rules.d: [Errno 13] Permission denied: '/usr/share/polkit-1/rules.d'
+> ==> [2026-08-17-12:34:44.157652] find must skip /usr/libexec/initscripts/legacy-actions/auditd: [Errno 13] Permission denied: '/usr/libexec/initscripts/legacy-actions/auditd'
+> ==> [2026-08-17-12:34:44.288435] find must skip /usr/local/pace-apps/manual/packages/gaussian: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/gaussian'
+> ==> [2026-08-17-12:34:44.288665] find must skip /usr/local/pace-apps/manual/packages/gaussview: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/gaussview'
+> ==> [2026-08-17-12:34:44.309513] find must skip /usr/local/pace-apps/manual/packages/pace-scs: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/pace-scs'
+> ==> [2026-08-17-12:34:44.329069] find must skip /usr/local/pace-apps/manual/packages/vllm-services: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vllm-services'
+> ==> [2026-08-17-12:34:44.656643] find must skip /usr/local/pace-apps/manual/packages/ngc-images/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/.git'
+> ==> [2026-08-17-12:34:44.656857] find must skip /usr/local/pace-apps/manual/packages/ngc-images/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/.gitlab'
+> ==> [2026-08-17-12:34:44.657056] find must skip /usr/local/pace-apps/manual/packages/ngc-images/pace-modules: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/ngc-images/pace-modules'
+> ==> [2026-08-17-12:34:44.686835] find must skip /usr/local/pace-apps/manual/packages/q-chem/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/q-chem/.git'
+> ==> [2026-08-17-12:34:44.687032] find must skip /usr/local/pace-apps/manual/packages/q-chem/6.3.1: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/q-chem/6.3.1'
+> ==> [2026-08-17-12:34:44.717472] find must skip /usr/local/pace-apps/manual/packages/singularity_images/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/.git'
+> ==> [2026-08-17-12:34:44.717690] find must skip /usr/local/pace-apps/manual/packages/singularity_images/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/.gitlab'
+> ==> [2026-08-17-12:34:44.740623] find must skip /usr/local/pace-apps/manual/packages/vasp/.git: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/.git'
+> ==> [2026-08-17-12:34:44.740824] find must skip /usr/local/pace-apps/manual/packages/vasp/.gitlab: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/.gitlab'
+> ==> [2026-08-17-12:34:44.741015] find must skip /usr/local/pace-apps/manual/packages/vasp/5.4.4: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/5.4.4'
+> ==> [2026-08-17-12:34:44.741202] find must skip /usr/local/pace-apps/manual/packages/vasp/6.3.2: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.3.2'
+> ==> [2026-08-17-12:34:44.741391] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2'
+> ==> [2026-08-17-12:34:44.741585] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-hdf5: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-hdf5'
+> ==> [2026-08-17-12:34:44.741778] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsol: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsol'
+> ==> [2026-08-17-12:34:44.741967] find must skip /usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsolpp: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.4.2-vaspsolpp'
+> ==> [2026-08-17-12:34:44.742157] find must skip /usr/local/pace-apps/manual/packages/vasp/6.5.1: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.5.1'
+> ==> [2026-08-17-12:34:44.742335] find must skip /usr/local/pace-apps/manual/packages/vasp/6.5.1-vtst: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/6.5.1-vtst'
+> ==> [2026-08-17-12:34:57.838471] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/carla: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/carla'
+> ==> [2026-08-17-12:34:57.838711] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/cuda-opengl: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/cuda-opengl'
+> ==> [2026-08-17-12:34:57.841087] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/qgis: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/qgis'
+> ==> [2026-08-17-12:34:57.841276] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/r: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/r'
+> ==> [2026-08-17-12:34:57.841449] find must skip /usr/local/pace-apps/manual/packages/singularity_images/modules/Core/sagemath: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/singularity_images/modules/Core/sagemath'
+  ==> [2026-08-17-12:35:23.982766] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/python/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/python/linuxppc64'
+  ==> [2026-08-17-12:36:02.825155] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/IUS/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/IUS/linuxppc64'
+  ==> [2026-08-17-12:36:02.827096] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/MODELSIM/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/MODELSIM/linuxppc64'
+  ==> [2026-08-17-12:36:02.829046] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/OSCI/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/OSCI/linuxppc64'
+  ==> [2026-08-17-12:36:02.831314] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/VCS/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/VCS/linuxppc64'
+  ==> [2026-08-17-12:36:02.832247] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/Z01X/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/Z01X/linuxppc64'
+  ==> [2026-08-17-12:36:02.834330] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/lib/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/lib/linuxppc64'
+  ==> [2026-08-17-12:36:02.837199] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/snps_unified/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/snps_unified/linuxppc64'
+> ==> [2026-08-17-12:36:02.983465] find must skip /usr/local/pace-apps/manual/packages/vasp/pace-modules/lmod/linux-rhel9-x86_64/openmpi/4.1.8: [Errno 13] Permission denied: '/usr/local/pace-apps/manual/packages/vasp/pace-modules/lmod/linux-rhel9-x86_64/openmpi/4.1.8'
+  ==> [2026-08-17-12:39:02.065980] find must skip /usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/specman/novas_sn/lib/linuxppc64: [Errno 40] Too many levels of symbolic links: '/usr/local/pace-apps/manual/packages/synopsys/verdi/Y-2026.03-SP1/share/PLI/specman/novas_sn/lib/linuxppc64'
+  ==> [2026-08-17-12:44:36.850944] Find complete: ['/usr'] ['libopenblas.so', 'openblas.so']
+  ==> [2026-08-17-12:44:36.851761] /tmp/dtorrance9/spack-stage/spack-stage-fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s/spack-src/configure --prefix=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s --with-blas-cflags= '--with-blas-libs=-L/usr/local/pace-apps/manual/packages/ase/3.22.1/lib -L/usr/local/pace-apps/manual/packages/fenics/2018/linux-rhel9-cascadelake/gcc-9.4.0/openblas-0.3.28-cg7h4gbbmohnlrdesf4ykgipgza67why/lib -L/usr/local/pace-apps/manual/packages/miniforge/24.3.0-0/lib -L/usr/local/pace-apps/manual/packages/miniforge/24.3.0-0/pkgs/openblas-0.3.27-pthreads_h9eca1d5_1/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-5yio6b23mudqpzcp5vo7myqjlm2cai53/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-rvmaspcpnaznuhllw4n7zbnjns6wlnja/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-yfpsdtwvlautw4os6xjw4dwppqpgcehy/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.30-zvfzw6m4bp72jbhu57x7uwcmqfsxykjm/lib -lopenblas'
+  checking build system type... x86_64-pc-linux-gnu
+  checking host system type... x86_64-pc-linux-gnu
+  checking target system type... x86_64-pc-linux-gnu
+-- lines 255 to 269 --
+  checking for GIVARO usability... yes
+  ---------------------------------------
+  checking for use of MKL... no
+  checking for BLAS... problem
+  
+  *******************************************************************************
+>  ERROR: BLAS not found!
+  
+   BLAS routines are required for this library to compile. Please
+   make sure BLAS are installed and specify its location with the option
+   --with-blas-libs=<libs> and if necessary --with-blas-cflags=<cflags>
+   when running configure.
+  *******************************************************************************
+  Command exited with status 1:
+      /tmp/dtorrance9/spack-stage/spack-stage-fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s/spack-src/configure --prefix=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s --with-blas-cflags= '--with-blas-libs=-L/usr/local/pace-apps/manual/packages/ase/3.22.1/lib -L/usr/local/pace-apps/manual/packages/fenics/2018/linux-rhel9-cascadelake/gcc-9.4.0/openblas-0.3.28-cg7h4gbbmohnlrdesf4ykgipgza67why/lib -L/usr/local/pace-apps/manual/packages/miniforge/24.3.0-0/lib -L/usr/local/pace-apps/manual/packages/miniforge/24.3.0-0/pkgs/openblas-0.3.27-pthreads_h9eca1d5_1/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-5yio6b23mudqpzcp5vo7myqjlm2cai53/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-rvmaspcpnaznuhllw4n7zbnjns6wlnja/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.23-yfpsdtwvlautw4os6xjw4dwppqpgcehy/lib -L/usr/local/pace-apps/spack/packages/linux-rhel9-x86_64_v3/gcc-12.3.0/openblas-0.3.30-zvfzw6m4bp72jbhu57x7uwcmqfsxykjm/lib -lopenblas'
+==> Error: The following packages failed to install:
+fflas-ffpack@2.5.0/orur2pcgcnr67nedjzwhiki4efm4sn2s: /tmp/dtorrance9/spack-stage/spack-stage-fflas-ffpack-2.5.0-orur2pcgcnr67nedjzwhiki4efm4sn2s-sfpmt7vo.log
+---------------------------------------
+Begin Slurm Epilog: Aug-17-2026 12:44:46
+Job ID:        11936877
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      spack-m2
+Resources:     cpu=16,mem=48G,node=1
+Rsrc Used:     cput=15:59:44,vmem=0,walltime=00:59:59,mem=32030956K,energy_used=0
+Partition:     cpu-small
+QOS:           inferno
+Nodes:         atl1-1-02-007-6-2
+---------------------------------------

@@ -1,0 +1,58 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-18-2026 07:17:43
+Job ID:    11976598
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+host=atl1-1-01-002-22-1.pace.gatech.edu stage=Y0 length_limit=6 start=Tue Aug 18 07:17:47 AM EDT 2026
+partition=cpu-large mem=184320M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 1 of the genus-21 computation: build the artinian reduction Y0 and
+     -- write it to disk, so the expensive minimalBetti attempts (stage 2) can be
+     -- rerun without repeating this work.
+     --
+     -- Mirrors "surface in M2/K3OfGenus21.m2" lines 1-21.
+     
+     needsPackage "NongeneralTypeSurfacesInP4"
+
+o1 = NongeneralTypeSurfacesInP4
+
+o1 : Package
+
+i2 : kk=ZZ/nextPrime 10^4;P4=kk[x_0..x_4];E=kk[e_0..e_4,SkewCommutative=>true];
+
+i5 : setRandomSeed("fix decomposition of D");
+
+i6 : 
+     minimalBetti(X=K3surfaceD11S11Ln(P4,0))
+
+            0 1  2 3 4
+o6 = total: 1 9 13 7 2
+         0: 1 .  . . .
+         1: . .  . . .
+         2: . .  . . .
+         3: . .  . . .
+         4: . 9  8 . .
+         5: . .  5 7 2
+
+o6 : BettiTally
+
+i7 : elapsedTime betti(Y=minimalModelOfK3(X,Verbose=>true))
+---------------------------------------
+Begin Slurm Epilog: Aug-18-2026 07:53:54
+Job ID:        11976598
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=1,mem=180G,node=1
+Rsrc Used:     cput=00:36:12,vmem=0,walltime=00:36:12,mem=1002652K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-01-002-22-1
+---------------------------------------

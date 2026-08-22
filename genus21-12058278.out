@@ -1,0 +1,134 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-20-2026 13:52:25
+Job ID:    12058278
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+host=atl1-1-01-005-26-1.pace.gatech.edu stage=nonmin length_limit=6 start=Thu Aug 20 01:52:30 PM EDT 2026
+threads=8 degree_limit=3 parallelize_by_degree=false
+partition=cpu-large mem=184320M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 3: nonminimal resolution of the artinian reduction, and extraction of
+     -- the Koszul matrix M whose rank gives the middle Betti number.
+     --
+     -- Why this rather than minimalBetti (see phoenix/README-genus21.md):
+     -- minimalBetti computes the same nonminimal resolution and then calls
+     -- rawMinimalBetti on it. That minimalization is dense Gaussian elimination,
+     -- and it is what exhausted 180 GB after 22.5 hours at LengthLimit => 6.
+     -- minimalBetti also quietly asks the resolution for LengthLimit + 1 steps
+     -- (OldChainComplexes/betti.m2), so this does strictly less work.
+     --
+     -- Environment:
+     --   LENGTH_LIMIT           homological degree to stop at
+     --   DEGREE_LIMIT           strand cutoff; 3 matches Frank's minimalBetti call
+     --   M2_THREADS             cores available; must match --cpus-per-task
+     --   PARALLELIZE_BY_DEGREE  "true" for the memory-hungry parallel strategy
+     
+     load "Y0.m2"
+
+i2 : 
+     envValue = (name, default) -> (
+         s := getenv name;
+         if s === null or s === "" then default else value s)
+
+o2 = envValue
+
+o2 : FunctionClosure
+
+i3 : 
+     lengthLimit = envValue("LENGTH_LIMIT", 6)
+
+o3 = 6
+
+i4 : degreeLimit = envValue("DEGREE_LIMIT", 3)
+
+o4 = 3
+
+i5 : parallelizeByDegree = envValue("PARALLELIZE_BY_DEGREE", false)
+
+o5 = false
+
+i6 : numTBBThreads = envValue("M2_THREADS", 1)
+
+o6 = 8
+
+i7 : 
+     << "-- Nonminimal: LengthLimit => " << lengthLimit << ", DegreeLimit => " << degreeLimit << ", ParallelizeByDegree => " << parallelizeByDegree << ", numTBBThreads => " << numTBBThreads << endl;
+-- Nonminimal: LengthLimit => 6, DegreeLimit => 3, ParallelizeByDegree => false, numTBBThreads => 8
+
+i8 : 
+     elapsedTime fY0 = res(Y0, Strategy => Nonminimal, DegreeLimit => degreeLimit, LengthLimit => lengthLimit, ParallelizeByDegree => parallelizeByDegree);
+ -- 18410.1s elapsed
+
+i9 : 
+     << "-- nonminimal ranks: " << apply(lengthLimit+1, i -> rank fY0_i) << endl;
+-- nonminimal ranks: {1, 190, 2280, 14535, 62016, 193800, 465120}
+
+i10 : betti fY0
+
+             0   1    2     3     4      5      6
+o10 = total: 1 190 2280 14535 62016 193800 465120
+          0: 1   .    .     .     .      .      .
+          1: . 171 1938 11628 46512 135660 302328
+          2: .  18  324  2754 14688  55080 154224
+          3: .   1   18   153   816   3060   8568
+
+o10 : BettiTally
+
+i11 : 
+      -- Frank's extraction (K3OfGenus21.m2 lines 26-29). Only meaningful once the
+      -- resolution reaches step 10, where the degree-11 block of d_10 is the
+      -- 1755182 x 1755182 Koszul matrix.
+      if lengthLimit >= 10 then (
+          elapsedTime posc = positions(degrees fY0_10, d -> d_0 == 11);
+          elapsedTime posr = positions(degrees fY0_9, d -> d_0 == 11);
+          << "-- block size: " << #posr << " rows x " << #posc << " cols (expect 1755182 x 1755182)" << endl;
+          elapsedTime M1 = fY0.dd_10^posr_posc;
+          betti M1;
+          elapsedTime M = map(kk^(rank target M1), , sub(M1, kk));
+          << "-- M: " << numrows M << " x " << numcols M << " over " << describe ring M << endl;
+          )
+
+i12 : 
+	Command being timed: "stdbuf -oL M2 -q --no-debug -e path = prepend("/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/", path)"
+	User time (seconds): 11731.69
+	System time (seconds): 7725.67
+	Percent of CPU this job got: 105%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:06:56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 72756596
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1795
+	Minor (reclaiming a frame) page faults: 1028999133
+	Voluntary context switches: 278844
+	Involuntary context switches: 121008
+	Swaps: 0
+	File system inputs: 852360
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+end=Thu Aug 20 06:59:27 PM EDT 2026 m2_exit=0
+---------------------------------------
+Begin Slurm Epilog: Aug-20-2026 18:59:27
+Job ID:        12058278
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=8,mem=180G,node=1
+Rsrc Used:     cput=1-16:56:40,vmem=0,walltime=05:07:05,mem=75985912K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-01-005-26-1
+---------------------------------------

@@ -1,0 +1,55 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-17-2026 15:16:34
+Job ID:    11942512
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  spack-m2
+Partition: cpu-small
+QOS:       inferno
+---------------------------------------
+host=atl1-1-02-004-6-1.pace.gatech.edu start=Mon Aug 17 03:16:35 PM EDT 2026
+1.3.0.dev0 (87d4c1d707f64de00fa704dcb7fd76776991700b)
+[ ] aoug7th openblas@0.3.34 staging (0s)
+[ ] aoug7th openblas@0.3.34 edit (3m04s)
+[ ] aoug7th openblas@0.3.34 build (3m04s)
+[ ] aoug7th openblas@0.3.34 install (9m16s)
+[+] aoug7th openblas@0.3.34 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/openblas-0.3.34-aoug7thy7hiss2n7mnx7732jshu43hht (9m28s)
+[ ] zqqghte csdp@6.2.0 staging (0s)
+[ ] ewcej7i fflas-ffpack@2.5.0 staging (0s)
+[ ] zqqghte csdp@6.2.0 edit (1s)
+[ ] zqqghte csdp@6.2.0 build (1s)
+[ ] ewcej7i fflas-ffpack@2.5.0 autoreconf (8s)
+[ ] ewcej7i fflas-ffpack@2.5.0 configure (8s)
+[ ] zqqghte csdp@6.2.0 install (8s)
+[+] zqqghte csdp@6.2.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/csdp-6.2.0-zqqghtevftxyqnwcmy723tfs3a3prtcf (9s)
+[ ] ewcej7i fflas-ffpack@2.5.0 build (28s)
+[ ] ewcej7i fflas-ffpack@2.5.0 install (28s)
+[+] ewcej7i fflas-ffpack@2.5.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/fflas-ffpack-2.5.0-ewcej7ijod5xnxybnuhmypl23vaqsvkh (34s)
+[ ] awdb7id macaulay2@1.26.06 staging (3s)
+[ ] awdb7id macaulay2@1.26.06 autoreconf (1m04s)
+[ ] awdb7id macaulay2@1.26.06 configure (1m04s)
+[x] awdb7id macaulay2@1.26.06 failed: /storage/scratch1/2/dtorrance9/spack-stage-macaulay2-1.26.06-awdb7idvzw6c3qmyrj6t3quc54jlfvcn-xqp8choi.log (2m01s)
+-- lines 234 to 242 --
+  checking for mathicgb.h... yes
+  checking for mathicgb/mtbb.hpp... yes
+  checking for gtest/gtest.h... yes
+  checking whether gtest library is installed... yes
+  checking for python3... python3
+  checking for Python.h... no
+> configure: error: Python.h not found
+  Command exited with status 1:
+      /storage/scratch1/2/dtorrance9/spack-stage-macaulay2-1.26.06-awdb7idvzw6c3qmyrj6t3quc54jlfvcn/spack-src/M2/configure --prefix=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/macaulay2-1.26.06-awdb7idvzw6c3qmyrj6t3quc54jlfvcn --with-system-libs --with-fplll --enable-documentation=download --with-boost-libdir=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/boost-1.90.0-7etsibopinzhw6ijxnb6qnhjhmd2tnxs/lib CPPFLAGS=-I/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/cddlib-0.94m-b3ovok7tlj6d763fmvjmkrwlnvwbjip6/include/cddlib F77=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/compiler-wrapper-1.1.0-w6e42jdtgf5xoxrwt5ron2xv3o4mgz4j/libexec/spack/gcc/gfortran 'FLIBS=-lgfortran -lm -lquadmath' 'FCLIBS=-lgfortran -lm -lquadmath'
+==> Error: The following packages failed to install:
+macaulay2@1.26.06/awdb7idvzw6c3qmyrj6t3quc54jlfvcn: /storage/scratch1/2/dtorrance9/spack-stage-macaulay2-1.26.06-awdb7idvzw6c3qmyrj6t3quc54jlfvcn-xqp8choi.log
+---------------------------------------
+Begin Slurm Epilog: Aug-17-2026 15:29:06
+Job ID:        11942512
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      spack-m2
+Resources:     cpu=16,mem=48G,node=1
+Rsrc Used:     cput=03:21:20,vmem=0,walltime=00:12:35,mem=8125636K,energy_used=0
+Partition:     cpu-small
+QOS:           inferno
+Nodes:         atl1-1-02-004-6-1
+---------------------------------------

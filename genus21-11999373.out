@@ -1,0 +1,118 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-18-2026 20:32:56
+Job ID:    11999373
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  genus21
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+host=atl1-1-01-005-21-1.pace.gatech.edu stage=betti length_limit=6 start=Tue Aug 18 08:32:59 PM EDT 2026
+threads=8 parallelize_by_degree=false
+partition=cpu-large mem=184320M workdir=/storage/home/hcoda1/2/dtorrance9/scratch/genus21
+1.26.06
+Macaulay2, version 1.26.06
+Type "help" to see useful commands
+
+i1 : -- Stage 2: minimal Betti numbers of the artinian reduction.
+     --
+     -- Reads Y0.m2 (written by make-Y0.m2). Controlled by environment variables:
+     --   LENGTH_LIMIT           homological degree to stop at (6, 8, 10)
+     --   M2_THREADS             cores available; must match --cpus-per-task
+     --   PARALLELIZE_BY_DEGREE  "true" enables the memory-hungry parallel strategy
+     --
+     -- Run at increasing length limits and watch MaxRSS: two data points
+     -- extrapolate to the full computation, and each rung gives partial Betti
+     -- numbers that are useful in their own right.
+     
+     load "Y0.m2"
+Y0.m2:3:0:(3):[6]: error: expected "]"
+Y0.m2:2:8:(3):[6]: error:  ... to match this
+stdio:12:4:(3):[1]: --backtrace: parse error--
+
+i2 : 
+     envValue = (name, default) -> (
+         s := getenv name;
+         if s === null or s === "" then default else value s)
+
+o2 = envValue
+
+o2 : FunctionClosure
+
+i3 : 
+     lengthLimit = envValue("LENGTH_LIMIT", 6)
+
+o3 = 6
+
+i4 : parallelizeByDegree = envValue("PARALLELIZE_BY_DEGREE", false)
+
+o4 = false
+
+i5 : 
+     -- Left at its default of 0, TBB uses every core it can see on the machine,
+     -- which on a shared node is far more than Slurm granted us.
+     numTBBThreads = envValue("M2_THREADS", 1)
+
+o5 = 8
+
+i6 : 
+     -- One line on purpose: see the note in make-Y0.m2 about continuation lines
+     -- beginning with "<<" when M2 reads from stdin.
+     << "-- LengthLimit => " << lengthLimit << ", ParallelizeByDegree => " << parallelizeByDegree << ", numTBBThreads => " << numTBBThreads << endl;
+-- LengthLimit => 6, ParallelizeByDegree => false, numTBBThreads => 8
+
+i7 : 
+     elapsedTime b = minimalBetti(Y0,
+         DegreeLimit => 3,
+         LengthLimit => lengthLimit,
+         ParallelizeByDegree => parallelizeByDegree)
+stdio:29:28:(3):[1]: error: no method found for applying minimalBetti to:
+     argument   :  Y0 (of class Symbol)
+ -- .000090878s elapsed
+
+i8 : b
+
+o8 = b
+
+o8 : Symbol
+
+i9 : 
+     -- For comparison, the expected ranks at the crux: with h = {1,19,19,1} and
+     -- i = 11, the terms h_j * binomial(19, i-j) are 75582, 1755182, 1755182, 75582.
+     
+	Command being timed: "stdbuf -oL M2 -q --no-debug -e path = prepend("/storage/home/hcoda1/2/dtorrance9/surfacesInP4/surface in M2/", path)"
+	User time (seconds): 0.87
+	System time (seconds): 0.29
+	Percent of CPU this job got: 39%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 314920
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 20
+	Minor (reclaiming a frame) page faults: 31593
+	Voluntary context switches: 8437
+	Involuntary context switches: 52
+	Swaps: 0
+	File system inputs: 413968
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+end=Tue Aug 18 08:33:03 PM EDT 2026 m2_exit=0
+---------------------------------------
+Begin Slurm Epilog: Aug-18-2026 20:33:03
+Job ID:        11999373
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      genus21
+Resources:     cpu=8,mem=180G,node=1
+Rsrc Used:     cput=00:01:28,vmem=0,walltime=00:00:11,mem=572172K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-01-005-21-1
+---------------------------------------

@@ -1,0 +1,129 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-17-2026 15:43:28
+Job ID:    11943324
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  spack-m2
+Partition: cpu-small
+QOS:       inferno
+---------------------------------------
+host=atl1-1-02-005-7-2.pace.gatech.edu start=Mon Aug 17 03:43:29 PM EDT 2026
+1.3.0.dev0 (87d4c1d707f64de00fa704dcb7fd76776991700b)
+[e] jo7jhwn openssl@3.0.7 /usr (0s)
+[e] m2h2cxx sqlite@3.34.1 /usr (0s)
+[e] 5wy4tiw xz@5.2.5 /usr (0s)
+[ ] 27hmjym util-linux-uuid@2.41 staging (0s)
+[ ] zmqtthp zstd@1.5.7 staging (0s)
+[ ] pq4acwh libmd@1.1.0 staging (0s)
+[ ] jq4kcjl libffi@3.5.2 staging (0s)
+[ ] pq4acwh libmd@1.1.0 autoreconf (1s)
+[ ] pq4acwh libmd@1.1.0 configure (1s)
+[ ] jq4kcjl libffi@3.5.2 autoreconf (7s)
+[ ] jq4kcjl libffi@3.5.2 configure (7s)
+[ ] zmqtthp zstd@1.5.7 edit (10s)
+[ ] zmqtthp zstd@1.5.7 build (10s)
+[ ] zmqtthp zstd@1.5.7 install (10s)
+[ ] pq4acwh libmd@1.1.0 build (13s)
+[ ] pq4acwh libmd@1.1.0 install (16s)
+[+] pq4acwh libmd@1.1.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/libmd-1.1.0-pq4acwhhf56ydykbcvw24mbdgsdkem5b (17s)
+[ ] zg2lhv2 libbsd@0.12.2 staging (1s)
+[+] zmqtthp zstd@1.5.7 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/zstd-1.5.7-zmqtthpsbqj56abofucd7mta7qxyaqfu (22s)
+[ ] jq4kcjl libffi@3.5.2 build (23s)
+[ ] zg2lhv2 libbsd@0.12.2 autoreconf (6s)
+[ ] zg2lhv2 libbsd@0.12.2 configure (6s)
+[ ] jq4kcjl libffi@3.5.2 install (25s)
+[+] jq4kcjl libffi@3.5.2 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/libffi-3.5.2-jq4kcjlhgbtybj4dwiac64tflw5oleys (26s)
+[ ] zg2lhv2 libbsd@0.12.2 build (24s)
+[ ] zg2lhv2 libbsd@0.12.2 install (27s)
+[+] zg2lhv2 libbsd@0.12.2 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/libbsd-0.12.2-zg2lhv22kc33n74ut66zxotk7kwrsxrq (30s)
+[ ] k2nqllk expat@2.8.3 staging (0s)
+[ ] k2nqllk expat@2.8.3 autoreconf (3s)
+[ ] k2nqllk expat@2.8.3 configure (3s)
+[ ] 27hmjym util-linux-uuid@2.41 autoreconf (56s)
+[ ] 27hmjym util-linux-uuid@2.41 configure (56s)
+[ ] k2nqllk expat@2.8.3 build (17s)
+[ ] k2nqllk expat@2.8.3 install (23s)
+[+] k2nqllk expat@2.8.3 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/expat-2.8.3-k2nqllkpahght36gi6l2zgdqkt2o4k27 (24s)
+[ ] 27hmjym util-linux-uuid@2.41 build (1m48s)
+[ ] 27hmjym util-linux-uuid@2.41 install (1m50s)
+[+] 27hmjym util-linux-uuid@2.41 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/util-linux-uuid-2.41-27hmjymyww54ibguic3x2zge64fbrkmk (1m54s)
+[ ] bxtmqr4 python@3.14.5 staging (0s)
+[ ] bxtmqr4 python@3.14.5 configure (57s)
+[ ] bxtmqr4 python@3.14.5 build (2m04s)
+[ ] bxtmqr4 python@3.14.5 install (2m28s)
+[+] bxtmqr4 python@3.14.5 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/python-3.14.5-bxtmqr4gb37huaty773ezrqmtuvjpws7 (2m49s)
+[ ] 7slinje macaulay2@1.26.06 staging (2s)
+[ ] 7slinje macaulay2@1.26.06 autoreconf (43s)
+[ ] 7slinje macaulay2@1.26.06 configure (43s)
+[ ] 7slinje macaulay2@1.26.06 build (2m02s)
+[ ] 7slinje macaulay2@1.26.06 install (27m15s)
+[+] 7slinje macaulay2@1.26.06 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/macaulay2-1.26.06-7slinjeegtylh4slkm5agq63zyi4rtwe (30m30s)
+==> Selected 51 specs to push to file:///storage/home/hcoda1/2/dtorrance9/m2-buildcache
+==> Warning: Configured mirror <unnamed> is missing layout.json and has either 
+    never been pushed or is of an old layout version. If it's the latter, 
+    consider running 'spack buildcache migrate' or rebuilding the specs in 
+    in this mirror.
+==> [ 1/51] Pushed libmd@1.1.0/pq4acwh
+==> [ 2/51] Pushed libbsd@0.12.2/zg2lhv2
+==> [ 3/51] Pushed less@692/6az4bbh
+==> [ 4/51] Pushed berkeley-db@18.1.40/xnmltnh
+==> [ 5/51] Pushed zstd@1.5.7/zmqtthp
+==> [ 6/51] Pushed util-linux-uuid@2.41/27hmjym
+==> [ 7/51] Pushed libffi@3.5.2/jq4kcjl
+==> [ 8/51] Pushed expat@2.8.3/k2nqllk
+==> [ 9/51] Pushed perl@5.42.2/2j7dhwd
+==> [10/51] Pushed help2man@1.49.3/xmdiy2a
+==> [11/51] Pushed autoconf-archive@2024.10.16/vujc6ul
+==> [12/51] Pushed readline@8.3/b2c7xmd
+==> [13/51] Pushed libatomic-ops@7.10.0/37akqrh
+==> [14/51] Pushed topcom@1.1.2/n5ozyhc
+==> [15/51] Pushed texinfo@7.2/w6xnjf4
+==> [16/51] Pushed singular-factory@4.4.1/zepdohh
+==> [17/51] Pushed python@3.14.5/bxtmqr4
+==> [18/51] Pushed openblas@0.3.34/aoug7th
+==> [19/51] Pushed ntl@11.5.1/5kllv4j
+==> [20/51] Pushed normaliz@3.11.1/ijgvxjb
+==> [21/51] Pushed nauty@2.9.3/nwhrmsy
+==> [22/51] Pushed msolve@0.10.1/3lgeiej
+==> [23/51] Pushed mpsolve@3.2.3/qwmnc4f
+==> [24/51] Pushed mpfr@4.2.2/3p253a2
+==> [25/51] Pushed mpfi@1.5.4/bgozzzb
+==> [26/51] Pushed memtailor@1.4/na2isuq
+==> [27/51] Pushed mathicgb@1.4/ujb3gdt
+==> [28/51] Pushed mathic@1.4/65ifsk7
+==> [29/51] Pushed lrslib@7.3/dflqwg3
+==> [30/51] Pushed jansson@2.14/benjgbj
+==> [31/51] Pushed intel-tbb@2023.1.0/lbexvrv
+==> [32/51] Pushed googletest@1.17.0/oh7agv7
+==> [33/51] Pushed gmp@6.3.0/swe65oy
+==> [34/51] Pushed glpk@5.0/nvkzapn
+==> [35/51] Pushed givaro@4.2.2/bl7ofzr
+==> [36/51] Pushed gfan@0.6.2/6zud3zi
+==> [37/51] Pushed gdbm@1.26/6baxsao
+==> [38/51] Pushed gcc-runtime@11.5.0/ki6zilo
+==> [39/51] Pushed frobby@0.9.9/adufyiy
+==> [40/51] Pushed fplll@5.5.0/7c2f27w
+==> [41/51] Pushed flint@3.6.0/n5oouox
+==> [42/51] Pushed fflas-ffpack@2.5.0/ewcej7i
+==> [43/51] Pushed eigen@5.0.1/tdqa7fw
+==> [44/51] Pushed csdp@6.2.0/zqqghte
+==> [45/51] Pushed compiler-wrapper@1.1.0/w6e42jd
+==> [46/51] Pushed cohomcalg@0.32/nkwe5y4
+==> [47/51] Pushed cddlib@0.94m/b3ovok7
+==> [48/51] Pushed boost@1.90.0/7etsibo
+==> [49/51] Pushed bdw-gc@8.2.12/a23r6ln
+==> [50/51] Pushed 4ti2@1.6.15/gflhuip
+==> [51/51] Pushed macaulay2@1.26.06/7slinje
+end=Mon Aug 17 04:21:23 PM EDT 2026
+---------------------------------------
+Begin Slurm Epilog: Aug-17-2026 16:21:24
+Job ID:        11943324
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      spack-m2
+Resources:     cpu=16,mem=48G,node=1
+Rsrc Used:     cput=10:07:44,vmem=0,walltime=00:37:59,mem=12775744K,energy_used=0
+Partition:     cpu-small
+QOS:           inferno
+Nodes:         atl1-1-02-005-7-2
+---------------------------------------

@@ -1,0 +1,100 @@
+.---------------------------------------
+Begin Slurm Prolog: Aug-17-2026 10:35:04
+Job ID:    11935536
+User ID:   dtorrance9
+Account:   gts-dtorrance9
+Job name:  spack-m2
+Partition: cpu-small
+QOS:       inferno
+---------------------------------------
+host=atl1-1-02-009-21-1.pace.gatech.edu start=Mon Aug 17 10:35:05 AM EDT 2026
+1.3.0.dev0 (87d4c1d707f64de00fa704dcb7fd76776991700b)
+[e] 6efbdhg perl@5.32.1 /usr (0s)
+[e] behxuom gettext@0.21 /usr (0s)
+[e] q23ffuf python@3.9.18 /usr (0s)
+[e] oikvq5g pkgconf@1.7.3 /usr (0s)
+[e] o37dchx openblas@0.3.21 /usr (0s)
+[e] wbuwqqr ncurses@6.2.20210508 /usr (0s)
+[e] pbijcxz zlib@1.2.11 /usr (0s)
+[e] dfyl4sh libtool@2.4.6 /usr (0s)
+[e] plgomue automake@1.16.2 /usr (0s)
+[e] redp4mu autoconf@2.69 /usr (0s)
+[e] axqdf4v m4@1.4.19 /usr (0s)
+[e] mtkeuz3 cmake@3.26.5 /usr (0s)
+[e] 3f35gxo hwloc@2.4.1 /usr (0s)
+[e] fhhvowv gmake@4.3 /usr (0s)
+[e] 45if5qv glibc@2.34 /usr (0s)
+[e] t7i5l2k gcc@11.5.0 /usr (0s)
+[e] ijvkhbo flex@2.6.4 /usr (0s)
+[e] 53hmd43 diffutils@3.7 /usr (0s)
+[e] z7xkrfh bison@3.7.4 /usr (0s)
+[e] 2yjzkbk which@2.21 /usr (0s)
+[ ] w6e42jd compiler-wrapper@1.1.0 staging (0s)
+[ ] vujc6ul autoconf-archive@2024.10.16 staging (0s)
+[ ] ki6zilo gcc-runtime@11.5.0 staging (0s)
+[ ] ki6zilo gcc-runtime@11.5.0 install (0s)
+[ ] w6e42jd compiler-wrapper@1.1.0 install (1s)
+[+] ki6zilo gcc-runtime@11.5.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/gcc-runtime-11.5.0-ki6ziloyozpb5biblhuznzmok4h64uwz (1s)
+[ ] vujc6ul autoconf-archive@2024.10.16 autoreconf (1s)
+[ ] vujc6ul autoconf-archive@2024.10.16 configure (1s)
+[+] w6e42jd compiler-wrapper@1.1.0 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/compiler-wrapper-1.1.0-w6e42jdtgf5xoxrwt5ron2xv3o4mgz4j (1s)
+[ ] tdqa7fw eigen@5.0.1 staging (0s)
+[ ] benjgbj jansson@2.14 staging (0s)
+[ ] swe65oy gmp@6.3.0 staging (0s)
+[ ] b2c7xmd readline@8.3 staging (0s)
+[ ] 7etsibo boost@1.90.0 staging (0s)
+[ ] 3n6rrmy help2man@1.49.3 staging (0s)
+[ ] lbexvrv intel-tbb@2023.1.0 staging (0s)
+[ ] nkwe5y4 cohomcalg@0.32 staging (0s)
+[ ] 37akqrh libatomic-ops@7.10.0 staging (0s)
+[ ] nvkzapn glpk@5.0 staging (0s)
+[ ] oh7agv7 googletest@1.17.0 staging (0s)
+[ ] u6773wv texinfo@7.2 staging (0s)
+[ ] benjgbj jansson@2.14 cmake (0s)
+[ ] 3n6rrmy help2man@1.49.3 autoreconf (0s)
+[ ] 3n6rrmy help2man@1.49.3 configure (0s)
+[ ] oh7agv7 googletest@1.17.0 cmake (0s)
+[ ] 37akqrh libatomic-ops@7.10.0 autoreconf (0s)
+[ ] 37akqrh libatomic-ops@7.10.0 configure (0s)
+[ ] tdqa7fw eigen@5.0.1 cmake (0s)
+[ ] lbexvrv intel-tbb@2023.1.0 cmake (0s)
+[ ] nvkzapn glpk@5.0 autoreconf (0s)
+[ ] nvkzapn glpk@5.0 configure (0s)
+[ ] swe65oy gmp@6.3.0 autoreconf (1s)
+[ ] u6773wv texinfo@7.2 autoreconf (1s)
+[ ] u6773wv texinfo@7.2 configure (1s)
+[ ] b2c7xmd readline@8.3 autoreconf (1s)
+[ ] b2c7xmd readline@8.3 configure (1s)
+[ ] 3n6rrmy help2man@1.49.3 build (1s)
+[ ] 3n6rrmy help2man@1.49.3 install (1s)
+[ ] vujc6ul autoconf-archive@2024.10.16 build (2s)
+[ ] vujc6ul autoconf-archive@2024.10.16 install (2s)
+[ ] oh7agv7 googletest@1.17.0 build (1s)
+[+] 3n6rrmy help2man@1.49.3 /storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/help2man-1.49.3-3n6rrmymzurwbagcdl57zcsc7mrb55pa (1s)
+[ ] nkwe5y4 cohomcalg@0.32 edit (2s)
+[ ] nkwe5y4 cohomcalg@0.32 build (2s)
+[x] u6773wv texinfo@7.2 failed: /tmp/dtorrance9/spack-stage/spack-stage-texinfo-7.2-u6773wvvxwjltvttbjeqz7cw43m6gvls-su_o88vo.log (2s)
+-- lines 23 to 31 --
+  checking xargs -n works... yes
+  checking whether UID '3725532' is supported by ustar format... no
+  checking whether GID '454012' is supported by ustar format... yes
+  checking how to create a ustar tar archive... none
+  checking for perl... /usr/bin/perl
+  checking Perl version and modules... no
+> configure: error: perl >= 5.8.1 with Encode, Data::Dumper and Unicode::Normalize required by Texinfo.
+  Command exited with status 1:
+      /tmp/dtorrance9/spack-stage/spack-stage-texinfo-7.2-u6773wvvxwjltvttbjeqz7cw43m6gvls/spack-src/configure --prefix=/storage/home/hcoda1/2/dtorrance9/spack/opt/spack/linux-cascadelake/texinfo-7.2-u6773wvvxwjltvttbjeqz7cw43m6gvls --disable-perl-xs
+==> Error: The following packages failed to install:
+texinfo@7.2/u6773wvvxwjltvttbjeqz7cw43m6gvls: /tmp/dtorrance9/spack-stage/spack-stage-texinfo-7.2-u6773wvvxwjltvttbjeqz7cw43m6gvls-su_o88vo.log
+---------------------------------------
+Begin Slurm Epilog: Aug-17-2026 10:35:28
+Job ID:        11935536
+User ID:       dtorrance9
+Account:       gts-dtorrance9
+Job name:      spack-m2
+Resources:     cpu=16,mem=48G,node=1
+Rsrc Used:     cput=00:06:40,vmem=0,walltime=00:00:25,mem=1566612K,energy_used=0
+Partition:     cpu-small
+QOS:           inferno
+Nodes:         atl1-1-02-009-21-1
+---------------------------------------
